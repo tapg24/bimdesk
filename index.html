@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>create eml file</title>
+    <script src="script.js"></script>
+    <link href="style.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+
+
+    <p>Кому: <input id="recipient" type="text" value="bimdesk@cpti.info" readonly></p>
+    <p>Тема: <input id="subject" type="text" value="Поддержка BIMDESK"></p>
+    <div>
+        <span>Среда</span>
+        <select id="env_select"></select>
+        <span>Раздел</span>
+        <select id="section_select"></select>
+    </div>
+    <div>
+        <p>Описание</p>
+        <textarea id="description"></textarea>
+    </div>
+
+    <div>
+        <p>Картинки <input id="paste_image" placeholder="Вставить изображение здесь (CTRL + v)"></input></p>
+        <div id="canvas_list"> </div>
+    </div>
+
+    <div>
+        <p>Файлы <button onclick="append_fileinput()">+</button></p>
+        <div id="file_list"> </div>
+    </div>
+    <br>
+    <div>
+        <button id="open_eml" onclick="open_eml()">Сохранить письмо</button>
+        <a id="download_eml" download hidden>hidden download</a>
+    </div>
+
+</body>
+
+</html>
