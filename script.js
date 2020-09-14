@@ -130,14 +130,6 @@ function remove_fileinput(event) {
 $(function () {
 
     $("#open_outlook").click(function () {
-
-        var objO = new ActiveXObject('Outlook.Application');
-        var objNS = objO.GetNameSpace('MAPI');
-        var mItm = objO.CreateItem(0);
-        mItm.To = document.getElementById("recipient").value;
-        mItm.Subject = document.getElementById("subject").value;
-        mItm.Body = document.getElementById("description").value;
-
         var env = document.getElementById("env_select");
         var env_text = env.options[env.selectedIndex].text
 
@@ -147,29 +139,16 @@ $(function () {
             var section_text = section.options[section.selectedIndex].text
         }
 
-        task = JSON.stringify({
+        var objO = new ActiveXObject('Outlook.Application');
+        var objNS = objO.GetNameSpace('MAPI');
+        var mItm = objO.CreateItem(0);
+        mItm.To = document.getElementById("recipient").value;
+        mItm.Subject = document.getElementById("subject").value;
+        mItm.Body = JSON.stringify({
             env: env_text,
             section: section_text,
             description: description
         });
-
-        var fso = new ActiveXObject("Scripting.FileSystemObject");
-
-        var tmpBaseFolder = "c:\\Temp\\bimdesk\\";
-        if (!fso.FolderExists(tmpBaseFolder)) {
-            fso.CreateFolder(tmpBaseFolder);
-        }
-        var tmpFolder = "c:\\Temp\\bimdesk\\" + uuidv4() + "\\";
-        var pathTestFile = tmpFolder + "task.dat";
-
-        if (!fso.FolderExists(tmpFolder)) {
-            fso.CreateFolder(tmpFolder);
-        }
-        var thefile = fso.CreateTextFile(pathTestFile, true);
-        thefile.write(task);
-        thefile.Close();
-
-        mItm.Attachments.Add(pathTestFile);
 
         for (var i = 0; i < attachment_array.length; i++) {
             mItm.Attachments.Add(attachment_array[i].path);
