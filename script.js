@@ -151,7 +151,7 @@ $(function () {
                 section: section_text,
                 description: description
             });
-            mItm.Body = '<structure>' + structure + '</structure>'
+            mItm.Body = '[structure]' + structure + '[/structure]'
 
             for (var i = 0; i < attachment_array.length; i++) {
                 mItm.Attachments.Add(attachment_array[i].path);
