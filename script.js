@@ -109,6 +109,7 @@ function on_fileinput_changed(event) {
     var file = event.target.files[0];
     attachment_array.push(
         {
+            name: file.name,
             path: event.target.value
         }
     );
