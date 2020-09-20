@@ -144,11 +144,12 @@ $(function () {
         var mItm = objO.CreateItem(0);
         mItm.To = document.getElementById("recipient").value;
         mItm.Subject = document.getElementById("subject").value;
-        mItm.Body = JSON.stringify({
+        var structure = JSON.stringify({
             env: env_text,
             section: section_text,
             description: description
         });
+        mItm.Body = '<structure>' + structure + '</structure>'
 
         for (var i = 0; i < attachment_array.length; i++) {
             mItm.Attachments.Add(attachment_array[i].path);
