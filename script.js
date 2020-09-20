@@ -131,32 +131,38 @@ function remove_fileinput(event) {
 $(function () {
 
     $("#open_outlook").click(function () {
-        var env = document.getElementById("env_select");
-        var env_text = env.options[env.selectedIndex].text
+        try {
+            var env = document.getElementById("env_select");
+            var env_text = env.options[env.selectedIndex].text
 
-        var section = document.getElementById("section_select");
-        var section_text = '';
-        if (section.selectedIndex !== -1) {
-            var section_text = section.options[section.selectedIndex].text
+            var section = document.getElementById("section_select");
+            var section_text = '';
+            if (section.selectedIndex !== -1) {
+                var section_text = section.options[section.selectedIndex].text
+            }
+
+            var objO = new ActiveXObject('Outlook.Application');
+            var objNS = objO.GetNameSpace('MAPI');
+            var mItm = objO.CreateItem(0);
+            mItm.To = document.getElementById("recipient").value;
+            mItm.Subject = document.getElementById("subject").value;
+            var structure = JSON.stringify({
+                env: env_text,
+                section: section_text,
+                description: description
+            });
+            mItm.Body = '<structure>' + structure + '</structure>'
+
+            for (var i = 0; i < attachment_array.length; i++) {
+                mItm.Attachments.Add(attachment_array[i].path);
+            }
+
+            mItm.Display();
         }
-
-        var objO = new ActiveXObject('Outlook.Application');
-        var objNS = objO.GetNameSpace('MAPI');
-        var mItm = objO.CreateItem(0);
-        mItm.To = document.getElementById("recipient").value;
-        mItm.Subject = document.getElementById("subject").value;
-        var structure = JSON.stringify({
-            env: env_text,
-            section: section_text,
-            description: description
-        });
-        mItm.Body = '<structure>' + structure + '</structure>'
-
-        for (var i = 0; i < attachment_array.length; i++) {
-            mItm.Attachments.Add(attachment_array[i].path);
+        catch (e) {
+            alert(e);
+            console.exception(e);
         }
-
-        mItm.Display();
     });
 
 });
