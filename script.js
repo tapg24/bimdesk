@@ -141,7 +141,7 @@ $(function () {
                 var section_text = section.options[section.selectedIndex].text
             }
 
-            var description = document.getElementById("description").text;
+            var description = document.getElementById("description").value;
 
             var objO = new ActiveXObject('Outlook.Application');
             var objNS = objO.GetNameSpace('MAPI');
