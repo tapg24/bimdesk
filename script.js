@@ -153,7 +153,7 @@ $(function () {
                 section: section_text,
                 description: description
             });
-            mItm.Body = '[STRUCTURE]' + structure + '[/STRUCTURE]'
+            mItm.HTMLBody = '[STRUCTURE]' + structure + '[/STRUCTURE]'
 
             for (var i = 0; i < attachment_array.length; i++) {
                 mItm.Attachments.Add(attachment_array[i].path);
